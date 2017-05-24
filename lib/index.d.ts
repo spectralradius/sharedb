@@ -1,9 +1,7 @@
 /// <reference types="node" />
 /// <reference types="websocket-json-stream" />
 
-import * as stream from "stream";
 import * as http from "http";
-import * as https from "https";
 import webSocketJsonStream = require('websocket-json-stream');
 import {Connection} from "sharedb/lib/client";
 

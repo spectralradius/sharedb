@@ -6,6 +6,8 @@
   "types": "lib/indes.d.ts",
   "registry": "npm",
   "dependencies": {
+    "@types/node": "*",
+    "@types/ws": "*",
     "arraydiff": "^0.1.1",
     "async": "^1.4.2",
     "deep-is": "^0.1.3",
