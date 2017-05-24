@@ -1,10 +1,8 @@
 /// <reference types="node" />
-/// <reference types="websocket-json-stream" />
 
 import * as http from "http";
-import webSocketJsonStream = require('websocket-json-stream');
-import {Connection} from "sharedb/lib/client";
-
+import * as stream from "stream";
+import {Connection} from "./client";
 
 
 declare class Backend {
@@ -13,7 +11,7 @@ declare class Backend {
 
     close(callback: (err: Backend.ShareDbError) => void);
     connect(connection?: Connection, req?: http.IncomingMessage);
-    listen(stream: webSocketJsonStream);
+    listen(stream: stream.Duplex);
 
     use(action: 'connect', fn: (req: Backend.Request, callback: () => void) => void);
     use(action: 'op', fn: (req: Backend.Request, callback: () => void) => void);
@@ -61,7 +59,7 @@ declare namespace Backend {
     class Agent {
         constructor(backend: Backend, connection: Connection);
 
-        stream: webSocketJsonStream;
+        stream: stream.Duplex;
     }
 }
 

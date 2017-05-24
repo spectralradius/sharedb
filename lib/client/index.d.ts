@@ -1,4 +1,4 @@
-import * as sharedb from "sharedb";
+import * as sharedb from "../";
 
 declare namespace Client {
 
