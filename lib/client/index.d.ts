@@ -1,8 +1,10 @@
 import * as sharedb from "../";
+import {EventEmitter} from "events";
+
 
 declare namespace Client {
 
-    class Doc<T> {
+    class Doc<T> extends EventEmitter {
         connection: Connection;
         collection: string;
         id: string;
@@ -13,15 +15,12 @@ declare namespace Client {
         fetch(callback: (err: sharedb.ShareDbError) => void);
         subscribe(callback: (err: sharedb.ShareDbError) => void);
         destroy();
-
         on(event: 'load', callback?: () => void);
         on(event: 'create', callback?: (source: boolean) => void);
         on(event: 'before op', callback?: (op: any, source: boolean) => void);
         on(event: 'op', callback?: (op: any, source: boolean) => void);
         on(event: 'del', callback?: (data: T, source: boolean) => void);
         on(event: 'error', callback?: (error: sharedb.ShareDbError) => void);
-
-        removeListener(event: string, callback?: (arg1?: any, arg2?: any) => void);
         create(data: T, type?: string, options?: Client.Doc.Options, callback?: (err: sharedb.ShareDbError) => void);
         submitOp(op: any, options?: Client.Doc.Options, callback?: (err: sharedb.ShareDbError) => void);
         del(options?: Client.Doc.Options, callback?: (err: sharedb.ShareDbError) => void);
@@ -38,17 +37,17 @@ declare namespace Client {
         constructor(socket: WebSocket);
 
         get<T>(collectionName: string, id: string): Doc<T>;
-        createFetchQuery<T>(collectionName: string, query: any, options: Client.Connection.Options<T>, callback: (err: sharedb.ShareDbError, results: Doc<T>[]) => void);
-        createSubscribeQuery<T>(collectionName: string, query: any, options: Client.Connection.Options<T>, callback: (rr: sharedb.ShareDbError, results: Doc<T>[]) => void): Query<T>;
+        createFetchQuery<T>(collectionName: string, query: Query<T>, options: Client.Connection.Options<T>, callback: (err: sharedb.ShareDbError, results: Doc<T>[]) => void);
+        createSubscribeQuery<T>(collectionName: string, query: Query<T>, options: Client.Connection.Options<T>, callback: (rr: sharedb.ShareDbError, results: Doc<T>[]) => void): Query<T>;
     }
 
     namespace Connection {
         interface Options<T> {
-            results: T[];
+            results: Doc<T>[];
         }
     }
 
-    class Query<T> {
+    class Query<T> extends EventEmitter {
         ready: boolean;
         results: Doc<T>[];
         extra: any;
