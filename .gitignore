@@ -2,6 +2,10 @@
 *.swp
 *.DS_Store
 
+# IDEA project files
+*.iml
+.idea
+
 # Emacs
 \#*\#
 
