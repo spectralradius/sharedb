@@ -1,7 +1,9 @@
 /// <reference types="node" />
+/// <reference types="ot-json0" />
 
 import * as http from "http";
 import * as stream from "stream";
+import * as ot from "ot-json0"
 import {Connection} from "./client";
 
 
@@ -41,7 +43,7 @@ declare namespace Backend {
         collection?: string;
         id?: string;
         query?: any;
-        op?: any;
+        op?: ot.operation;
     }
 
     class Options {

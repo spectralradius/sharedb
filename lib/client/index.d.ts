@@ -1,4 +1,7 @@
+/// <reference types="ot-json0" />
+
 import * as sharedb from "../";
+import * as ot from "ot-json0"
 import {EventEmitter} from "events";
 
 
@@ -17,12 +20,12 @@ declare namespace Client {
         destroy();
         on(event: 'load', callback?: () => void);
         on(event: 'create', callback?: (source: boolean) => void);
-        on(event: 'before op', callback?: (op: any, source: boolean) => void);
-        on(event: 'op', callback?: (op: any, source: boolean) => void);
+        on(event: 'before op', callback?: (op: ot.operation, source: boolean) => void);
+        on(event: 'op', callback?: (op: ot.operation, source: boolean) => void);
         on(event: 'del', callback?: (data: T, source: boolean) => void);
         on(event: 'error', callback?: (error: sharedb.ShareDbError) => void);
         create(data: T, type?: string, options?: Client.Doc.Options, callback?: (err: sharedb.ShareDbError) => void);
-        submitOp(op: any, options?: Client.Doc.Options, callback?: (err: sharedb.ShareDbError) => void);
+        submitOp(op: ot.component, options?: Client.Doc.Options, callback?: (err: sharedb.ShareDbError) => void);
         del(options?: Client.Doc.Options, callback?: (err: sharedb.ShareDbError) => void);
         whenNothingPending(callback?: (err: sharedb.ShareDbError) => void);
     }
